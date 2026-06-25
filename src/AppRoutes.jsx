@@ -1,6 +1,6 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 
-import { Toaster } from "react-hot-toast"; import { useState } from "react"; import "./App.css";
+import { useState } from "react"; import "./App.css";
 
 
 import Home from "./Pages/Home";
@@ -23,6 +23,8 @@ import CreateBlog from "./Pages/Dashboard/Admin/BlogForm";
 
 import EditBlog from "./Pages/Dashboard/Admin/EditBlog";
 
+// import BlogForm from "./Pages/Dashboard/Admin/BlogForm"
+
 
 
 function AppRoutes() {
@@ -38,34 +40,37 @@ function AppRoutes() {
       {!isDashboardRoute && <Header />}
 
       <Routes>
+
+
         <Route path="/" element={<Home />} />
+
         <Route path="/about" element={<About />} />
+
         <Route path="/services" element={<Services />} />
+
         <Route path="/contact" element={<Contact />} />
+
         <Route path="/signup" element={<Signup />} />
+
         <Route path="/login" element={<Login />} />
+
         <Route path="/profile" element={<Profile />} />
-
-
-        <Route path="/create-blog" element={<CreateBlog />} />
-
-
-        <Route
-          path="/edit-blog/:id"
-          element={<EditBlog />}
-        />
 
 
 
 
 
         <Route path="/admin" element={<AdminLayout />}>
+
           <Route path="dashboard" element={<AdminDashboard />} />
-          {/* <Route path="users" element={<Users />} /> */}
-          {/* <Route path="orders" element={<Orders />} /> */}
+
           <Route path="blogs" element={<AdminBlogs />} />
-          <Route path="/admin/blogs" element={<AdminBlogs />} />
-          {/* <Route path="settings" element={<Settings />} /> */}
+
+          <Route path="create-blog" element={<CreateBlog />} />
+
+
+          <Route path="edit-blog/:id" element={<EditBlog />} />
+
         </Route>
 
 
@@ -78,17 +83,6 @@ function AppRoutes() {
 
 
 
-        {/* <Route path="/admin" element={<AdminLayout />} /> */}
-        {/* <Route path="/user" element={<UserDashboard />} /> */}
-        {/* <Route
-          path="/admin/blogs"
-          element={<AdminBlogs />}
-        /> */}
-
-        {/* <Route path="/admin/orders" element={<Orders />} /> */}
-
-
-        {/* <Route path="/admin/settings" element={<Settings />} /> */}
 
 
       </Routes>

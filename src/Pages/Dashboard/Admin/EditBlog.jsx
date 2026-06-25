@@ -6,10 +6,13 @@ import { getSingleBlog } from "../../../Services/blogService";
 import { updateBlog } from "../../../Services/blogService";
 
 
+import toast, { Toaster } from "react-hot-toast";
+
 
 function EditBlog() {
 
   const { id } = useParams();
+  const [loading, setLoading] = useState(false);
 
   console.log(id);
 
@@ -49,22 +52,21 @@ function EditBlog() {
     data.append("description", formData.description);
     data.append("image", formData.image);
 
-    // if (formData.image) {
-    //   data.append("image", formData.image);
-    // }
-
-
 
     try {
+      setLoading(true);
       const response = await updateBlog(id, data);
 
       console.log(response);
-
-      alert("Blog Updated Successfully");
+      setLoading(false);
+      toast.success("Blog update Successfully");
 
       navigate("/admin/blogs");
     } catch (error) {
-      console.log(error);
+      setLoading(false);
+      toast.error(
+        "Something went wrong"
+      )
     }
   };
 
@@ -183,6 +185,7 @@ function EditBlog() {
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <button
               type="submit"
+              disabled={loading}
               className="
                 flex-1
                 bg-blue-600
@@ -194,7 +197,11 @@ function EditBlog() {
                 transition
               "
             >
-              Update Blog
+              {loading ? (
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              ) : (
+                "Update Blog"
+              )}
             </button>
 
             <button

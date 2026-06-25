@@ -1,24 +1,15 @@
-
 import { useEffect, useState } from "react";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 
-
 import { useNavigate } from "react-router-dom";
 
-import { getBlogs, deleteBlog } from "../../../Services/blogService";
-
-
-
-
-
-
-
+import { getBlogs, deleteBlog, getBlogByTitle } from "../../../Services/blogService";
 
 
 function AdminBlogs() {
-
   const navigate = useNavigate();
   const [blogs, setBlogs] = useState([]);
+  const [searchTitle, setSearchTitle] = useState("");
 
   const fetchBlogs = async () => {
     try {
@@ -35,13 +26,6 @@ function AdminBlogs() {
   useEffect(() => {
     fetchBlogs();
   }, []);
-
-
-
-
-
-
-
 
 
 
@@ -67,9 +51,23 @@ function AdminBlogs() {
   };
 
 
+  const handleSearch = async () => {
+    try {
+      const data = await getBlogByTitle(searchTitle);
+
+      console.log(data.blogs)
+      setBlogs(data.blogs);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 
 
+  // const fetchBlogs = async () => {
+  //   const data = await getBlogs();
+  //   setBlogs(data.blogs);
+  // };
 
 
   return (
@@ -87,7 +85,42 @@ function AdminBlogs() {
         </div>
 
 
-        <button onClick={() => navigate("/create-blog")} className="flex items-center gap-2 bg-blue-600 text-white px-5 py-3 rounded-lg">
+
+        <div className="flex gap-2">
+          <input
+            type="text"
+            placeholder="Search by title"
+            value={searchTitle}
+            onChange={(e) => setSearchTitle(e.target.value)}
+            className="border p-2 rounded"
+          />
+
+          <button
+            onClick={handleSearch}
+            className="bg-blue-500 text-white px-4 py-2 rounded"
+          >
+            Search
+          </button>
+
+          {/* <button
+            onClick={fetchBlogs}
+            className="bg-green-500 text-white px-4 py-2 rounded"
+          >
+            reset
+          </button> */}
+
+
+        </div>
+        <button onClick={fetchBlogs}
+          className="bg-blue-500 text-white px-4 py-2 rounded">
+          Show All Blogs
+        </button>
+
+
+
+
+
+        <button onClick={() => navigate("/admin/create-blog")} className="flex items-center gap-2 bg-blue-600 text-white px-5 py-3 rounded-lg">
 
           <Plus size={18} />
           Create Blog
@@ -137,7 +170,7 @@ function AdminBlogs() {
                 <td className="p-4">
                   <div className="flex justify-center gap-3">
                     <button onClick={() =>
-                      navigate(`/edit-blog/${blog._id}`)
+                      navigate(`/admin/edit-blog/${blog._id}`)
 
                     }
                       className="

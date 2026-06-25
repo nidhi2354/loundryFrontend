@@ -43,3 +43,18 @@ export const deleteBlog = async (id)=>{
 
   return response.data;
 }
+
+
+
+
+
+
+
+
+
+export const getBlogByTitle = async (title) => {
+  const response = await api.get(`/blog/search?title=${title}`);
+
+  return response.data;
+};
+

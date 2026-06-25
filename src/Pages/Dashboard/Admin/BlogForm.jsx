@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createBlogs } from "../../../Services/blogService";
+import toast, { Toaster } from "react-hot-toast";
 
 
 
 function CreateBlog() {
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -15,7 +15,6 @@ function CreateBlog() {
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-
     if (name === "image") {
       setFormData({ ...formData, image: files[0] });
     } else {
@@ -23,7 +22,9 @@ function CreateBlog() {
     }
   };
 
+  const [loading, setLoading] = useState(false);
   console.log(FormData)
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -33,26 +34,30 @@ function CreateBlog() {
     data.append("description", formData.description);
     data.append("image", formData.image);
 
-
-
-
     try {
+
+      setLoading(true);
       const response = await createBlogs(data);
 
       console.log(response);
 
-      alert("Blog Created Successfully");
+      setLoading(false);
+      toast.success("Blog Created Successfully");
+
 
       navigate("/admin/blogs");
     } catch (error) {
-      console.log(error.response?.data);
+      setLoading(false);
 
-      alert(
-        error.response?.data?.message ||
-        "Something went wrong"
-      );
+      toast.error(
+        error.response?.data?.message || "Something went wrong"
+      )
+
     }
+
   };
+
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
@@ -93,11 +98,18 @@ function CreateBlog() {
           required
         />
 
+
+
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-3 rounded-lg"
+          disabled={loading}
+          className="w-full bg-blue-600 text-white py-3 rounded-lg flex justify-center items-center"
         >
-          Create Blog
+          {loading ? (
+            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+          ) : (
+            "Create Blog"
+          )}
         </button>
       </form>
     </div>
