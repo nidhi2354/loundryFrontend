@@ -14,6 +14,7 @@ function Header() {
     { name: "About", path: "/about" },
     { name: "Services", path: "/services" },
     { name: "Contact", path: "/contact" },
+    { name: "Blogs", path: "/blogs" },
   ];
 
 

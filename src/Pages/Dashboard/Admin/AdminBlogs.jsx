@@ -64,10 +64,7 @@ function AdminBlogs() {
 
 
 
-  // const fetchBlogs = async () => {
-  //   const data = await getBlogs();
-  //   setBlogs(data.blogs);
-  // };
+
 
 
   return (
@@ -102,12 +99,6 @@ function AdminBlogs() {
             Search
           </button>
 
-          {/* <button
-            onClick={fetchBlogs}
-            className="bg-green-500 text-white px-4 py-2 rounded"
-          >
-            reset
-          </button> */}
 
 
         </div>

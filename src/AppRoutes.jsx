@@ -7,6 +7,9 @@ import Home from "./Pages/Home";
 import About from "./Pages/About"
 import Services from "./Pages/Services"
 import Contact from "./Pages/Contact"
+import Blogs from "./Pages/Blogs";
+import BlogDetails from "./Pages/BlogDetails"
+
 import Signup from "./Pages/Auth/Signup";
 import Login from "./Pages/Auth/Login"
 import Profile from "./Pages/Auth/Profile"
@@ -23,7 +26,7 @@ import CreateBlog from "./Pages/Dashboard/Admin/BlogForm";
 
 import EditBlog from "./Pages/Dashboard/Admin/EditBlog";
 
-// import BlogForm from "./Pages/Dashboard/Admin/BlogForm"
+
 
 
 
@@ -49,6 +52,10 @@ function AppRoutes() {
         <Route path="/services" element={<Services />} />
 
         <Route path="/contact" element={<Contact />} />
+
+        <Route path="/blogs" element={<Blogs />} />
+
+        <Route path="/blogs/:id" element={<BlogDetails />} />
 
         <Route path="/signup" element={<Signup />} />
 
